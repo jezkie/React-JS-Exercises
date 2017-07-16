@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React tutorial</title>
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+    var LikesComponent = React.createClass({
+        getDefaultProps: function() {
+          return ({
+            likes: 0
+          })
+        },
+
+        getInitialState: function() {
+          return ({
+            popular: false
+          })
+        },
+        updateLikes: function() {
+          ReactDOM.render(<LikesComponent likes={this.props.likes +1} />, document.getElementById('app'))
+        },
+        componentWillReceiveProps: function(nextProps) {
+          console.log(nextProps);
+          this.setState({
+            popular: nextProps.likes >= 10
+          });
+        },
+        shouldComponentUpdate: function(nextProp, nextState) {
+          console.log('shouldComponentUpdate');
+          return nextProp.likes % 2 === 0;
+        },
+        componentDidUpdate: function(prevProps, prevState) {
+          console.log('Previous props', prevProps);
+          console.log('Previous state', prevState);
+          console.log(ReactDOM.findDOMNode(this));
+        },
+        render: function(){
+          return (
+           <div className="container">
+              <h1>{this.state.popular ? "I'm popular" : null}</h1>
+              <button className="btn blue-btn" onClick={this.updateLikes}>Like: {this.props.likes}</button>
+           </div>
+          )
+        }
+      });
+
+
+      ReactDOM.render(<LikesComponent />, document.getElementById('app'));
+    </script>
+  </body>
+</html>
