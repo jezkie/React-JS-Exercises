@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React tutorial</title>
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      class Counter extends React.Component {
+        constructor(props) { // will give access to this.props
+          super(props);
+          console.log(props);
+          this.state = { count: 0 } // will throw error if super is not called
+          this.click = this.click.bind(this); // option 2 to bind: you will not be able to pass parameter here
+        }
+
+        click(value) {
+          console.log(this, value); // in ES6, you have to bind this to component
+        }
+
+        render() {
+          console.log(this); // available if you don't use constructor but you have to call super if you use one
+          return (
+            // <div onClick={this.click.bind(this, 10)}>{this.props.text}}</div> // // option 1 to bind:
+            <div onClick={() => this.click(10)}>{this.props.text}</div> // option 3 to bind (ES6 arrow function): can pass value
+          )
+        }
+      }
+
+      Counter.defaultProps = { text: "Hello"}
+      Counter.propTypes = { text: React.PropTypes.string }
+
+      ReactDOM.render(<Counter />, document.getElementById('app'));
+    </script>
+  </body>
+</html>
