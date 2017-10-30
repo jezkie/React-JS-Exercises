@@ -1,10 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const UserItem = (props) => (
-  <div className='box'>
+  <Link
+  className='box'
+  onClick={props.onClick}
+  to={`/user:${props.user.login.username}`}>
     <img src={props.user.picture.thumbnail}/>
     <span>{props.user.login.username}</span>
-  </div>
+  </Link>
 )
 
 /*UserItem.propTypes = {

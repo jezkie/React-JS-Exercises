@@ -18,7 +18,6 @@ function usersReducer(state = initalState, action) {
     case 'FETCH_USER_FULFILLED':
       users = action.payload.data.results;
       return { ...state, loading: false, users: users };
-      break;
     case 'FETCH_USER_REJECTED':
       return { ...state, loading: false, error: `${action.payload.message}` }
     default:
